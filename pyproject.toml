@@ -8,7 +8,7 @@ build-backend = "hatchling.build"
 [project]
 name = "volvopy"
 description = "Connect to the Volvo API using Python."
-version = "0.0.1"  # latest/current distribution version
+version = "0.0.2"  # latest/current distribution version
 # version = "0.0.1"  # latest test version
 dependencies = []
 license = "MIT"
