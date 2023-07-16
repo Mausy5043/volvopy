@@ -1,6 +1,4 @@
 {
-    "source": "VOLVO (for reference ONLY, no guarantees implied)",
-    "documentation URL": "https://developer.volvocars.com/apis/energy/v1/specification/#openapi",
     "openapi": "3.0.1",
     "info": {
         "title": "Energy API",

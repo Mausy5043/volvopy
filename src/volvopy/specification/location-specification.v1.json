@@ -1,0 +1,300 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Location",
+        "description": "This API allows to get latest known location of a connected vehicle",
+        "contact": {},
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.volvocars.com/location"
+        }
+    ],
+    "paths": {
+        "/v1/vehicles/{vin}/location": {
+            "get": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Get last known location",
+                "description": "Get last known location",
+                "operationId": "GetVehicleLocation",
+                "parameters": [
+                    {
+                        "name": "vin",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "vcc-api-operationId",
+                        "in": "header",
+                        "description": "A transaction unique id which can be used do identify the transaction in integrated systems",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LocationResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "data": {
+                                        "type": "string",
+                                        "properties": {},
+                                        "geometry": {
+                                            "type": "string",
+                                            "coordinates": [
+                                                0
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Request contains an unaccepted input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported Media Type",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": 0,
+                                    "operationId": "string",
+                                    "error": {
+                                        "message": "string",
+                                        "description": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "operationId": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "$ref": "#/components/schemas/Error"
+                    }
+                }
+            },
+            "Feature": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "properties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "geometry": {
+                        "$ref": "#/components/schemas/Point"
+                    }
+                }
+            },
+            "LocationResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "operationId": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Feature"
+                    }
+                }
+            },
+            "Point": {
+                "required": [
+                    "coordinates"
+                ],
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "coordinates": {
+                        "maxItems": 3,
+                        "minItems": 0,
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "vcc-api-key",
+                "in": "header",
+                "description": "Your application’s VCC API Key."
+            },
+            "accessToken": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "The access token issued by Volvo ID identity system."
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "accessToken": []
+        }
+    ]
+}
