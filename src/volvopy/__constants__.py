@@ -10,7 +10,7 @@ import pytz
 # constants
 DEBUG = False
 HERE = os.path.realpath(__file__).split("/")
-APP = HERE[-2]
+APPNAME = HERE[-2]
 # to find other files
 APPROOT = "/".join(HERE[0:-1])
 # host_name :
@@ -33,12 +33,14 @@ _supported_api_specifications = {
     "extended.v1": f"{APPROOT}/specification/extended-vehicle-c3-specification.v1.json",
     "location.v1": f"{APPROOT}/specification/location-specification.v1.json",
 }
+
 API_SPECIFICATIONS = {
     "connected": "connected.v1",
     "energy": "energy.v1",
     "extended": "extended.v1",
     "location": "location.v1",
 }
+
 # load the specifications and store them in a constant
 for _key, _spec in API_SPECIFICATIONS.items():
     _filename = _supported_api_specifications[_spec]
@@ -46,11 +48,13 @@ for _key, _spec in API_SPECIFICATIONS.items():
         _data = json.load(_json_file)
     API_SPECIFICATIONS[_key] = _data
 
+# load the configuration file and store the carious keys in constants
 _inifile = configparser.ConfigParser()
 _inifile.read(_api_keys_file)
 API_KEY = [_inifile.get("API", "vcc_primary"), _inifile.get("API", "vcc_secondary")]
 API_TOKEN = _inifile.get("API", "connected_token")
 API_VIN = _inifile.get("API", "vin")
+
 
 if __name__ == "__main__":
     _pp2.pprint(API_SPECIFICATIONS)
