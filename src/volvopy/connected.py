@@ -30,9 +30,13 @@ class Connected_Vehicle(VolvoAPI):
         print(f"Number of URLs: {len(self.call_urls)}")
         for item in self.call_urls:
             mf.syslog_trace(item, False, DEBUG)
+        if self.api_tokens[api]:
+            self.api_token = self.api_tokens[api]
+        if not self.api_token:
+            raise BaseException("No Token")
 
 
 if __name__ == "__main__":
     DEBUG = True
     a = Connected_Vehicle(debug=DEBUG)
-    a.get()
+    a.get(accept="application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json")

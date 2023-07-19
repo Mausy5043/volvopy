@@ -29,6 +29,8 @@ class Location(VolvoAPI):
         print(f"Number of URLs: {len(self.call_urls)}")
         for item in self.call_urls:
             mf.syslog_trace(item, False, DEBUG)
+        if self.api_tokens[api]:
+            self.api_token = self.api_tokens[api]
 
 
 if __name__ == "__main__":
