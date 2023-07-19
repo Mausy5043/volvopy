@@ -52,7 +52,12 @@ for _key, _spec in API_SPECIFICATIONS.items():
 _inifile = configparser.ConfigParser()
 _inifile.read(_api_keys_file)
 API_KEY = [_inifile.get("API", "vcc_primary"), _inifile.get("API", "vcc_secondary")]
-API_TOKEN = _inifile.get("API", "connected_token")
+API_TOKEN = {}
+for _name in API_SPECIFICATIONS:
+    try:
+        API_TOKEN[_name] = _inifile.get("API", f"{_name}_token")
+    except:
+        API_TOKEN[_name] = None
 API_VIN = _inifile.get("API", "vin")
 
 
@@ -61,3 +66,4 @@ if __name__ == "__main__":
     print()
     print(API_KEY)
     print(API_VIN)
+    print(API_TOKEN)
