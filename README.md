@@ -7,8 +7,7 @@
 # volvopy
 Connect to the Volvo API using Python.
 
-Development is in Python 3.9.   
-Python 3.8 is expected to work also.
+The library works with Python 3.9 (v3.8 will likely also work) for the demo cars of the API using your own VCC keys. You also need to generate DEMO tokens for each API module. 
 
 # Installation
 On Linux:
@@ -29,5 +28,5 @@ vin: <VIN number of your car>
 ```
 
 # Disclaimer & License
-This is demonstration software and should not yet be expected to work.
+This is demonstration software.
 See [LICENSE](LICENSE).
