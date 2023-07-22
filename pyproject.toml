@@ -9,7 +9,7 @@ build-backend = "hatchling.build"
 name = "volvopy"
 description = "Connect to the Volvo API using Python."
 # version = "0.1.1"  # latest/current distribution version
-version = "0.1.9"  # latest test version
+version = "0.1.11"  # latest test version
 dependencies = []
 license = "MIT"
 authors = [
@@ -18,7 +18,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.8",
