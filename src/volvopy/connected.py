@@ -20,23 +20,13 @@ class Connected_Vehicle(VolvoAPI):
     def __init__(self, debug=False):
         super().__init__(debug=debug)
 
-        api = "connected"
-        self.base_url = f"{vc.API_SPECIFICATIONS[api]['servers'][0]['url']}"
-        vin = self.vin  # noqa
-        id = "NOT-AVAILABLE"  # noqa
-        for path in vc.API_SPECIFICATIONS[api]["paths"]:
-            url_path = eval(f"f'{path}'")
-            self.call_urls.append(f"{self.base_url}{url_path}")
-        print(f"Number of URLs: {len(self.call_urls)}")
-        for item in self.call_urls:
-            mf.syslog_trace(item, False, DEBUG)
-        if self.api_tokens[api]:
-            self.api_token = self.api_tokens[api]
-        if not self.api_token:
-            raise BaseException("No Token")
+        self.api = "connected"
+        self.api_token = vc.API_TOKEN[self.api]
+        self.api_spec = vc.API_SPECIFICATIONS[self.api]
+        self.base_url = f"{self.api_spec['servers'][0]['url']}"
 
 
 if __name__ == "__main__":
     DEBUG = True
     a = Connected_Vehicle(debug=DEBUG)
-    a.get(accept="application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json")
+    a.get_all(accept="application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json")
