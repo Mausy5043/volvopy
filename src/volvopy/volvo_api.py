@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-import random
 
-import __constants__ as vc
-import os
-import requests
 import json
+import os
+import random
+import uuid
 
 import mausy5043_common.funfile as mf
+import requests
+
+import __constants__ as vc
 
 DEBUG = False
 HERE = os.path.realpath(__file__).split("/")
 MYID = HERE[-1]
+
+# Token for testing: https://developer.volvocars.com/apis/docs/test-access-tokens/#demo-car
+
+__UUID__ = uuid.UUID("{FACADE00-289C-11EE-8000-6AB05A49B93D}")  # Application UUID
 
 
 class VolvoAPI:
@@ -20,44 +26,56 @@ class VolvoAPI:
     """
 
     def __init__(self, debug=False):
-        self.debug = debug
-        self.api_key = vc.API_KEY[round(random.random())]   # Select one of the keys for use
-        # For testing a DEMO token is needed, which will be valid for 1 hr and can be generated
-        # at one of the API websites (see the appropriate module for a link)
-        self.api_token = None   # This holds the token
-        self.vin = vc.API_VIN   # The VIN number of the car
+        self.debug = debug  # flag for debugging
+        self.api_key = vc.API_KEY[round(random.random())]  # nosec
+        # select one of the keys for use
+        # For testing: a DEMO token is needed, which will be valid for 1 hr and can be
+        # generated here: https://developer.volvocars.com/apis/docs/test-access-tokens/#demo-car
+        self.vin = vc.API_VIN  # The VIN number of the car
+        self.uuid = __UUID__  # application UUID
+        mf.syslog_trace(f"UUID: {str(self.uuid)}", False, self.debug)
+        # construct an application-wide instance-specific UUID
+        self.vuid = uuid.uuid3(self.uuid, "volvopy")
+        mf.syslog_trace(f"VUID: {str(self.vuid)}", False, self.debug)
 
-        self.get_urls = []
-        self.post_urls = []
         self.api = ""
+        self.api_token = None
         self.api_spec = {}
-        self.base_url = ""
+        self.guid = (
+            "deadd00d-dead-d00d-dead-badbadbadbad"  # placeholder for a API-specific UUID
+        )
 
-    def get_all(self, accept="application/json"):
+    def get_all(self):
         """GET all paths"""
         result = []
-        vin = self.vin
+        vin = self.vin  # noqa
+        base_url = f"{self.api_spec['servers'][0]['url']}"
         for path in self.api_spec["paths"]:
             try:
                 if self.api_spec["paths"][path]["get"]:
                     # get the 'Accept' entry from the specification
-                    accept = list(self.api_spec["paths"][path]["get"]["responses"]["200"]["content"])[0]# construct the headers
+                    accept = list(
+                        self.api_spec["paths"][path]["get"]["responses"]["200"]["content"]
+                    )[
+                        0
+                    ]  # construct the headers
                     headers = {
-                                "Content-type": "application/json",
-                                "Accept": f"{accept}",
-                                "authorization": f"Bearer {self.api_token}",
-                                "vcc-api-key": self.api_key,
-                                }
+                        "Content-type": "application/json",
+                        "Accept": f"{accept}",
+                        "authorization": f"Bearer {self.api_token}",
+                        "vcc-api-key": self.api_key,
+                        "vcc-api-operationId": self.guid,
+                    }
                     # construct the URL
                     try:
-                        url = eval(f"f'{self.base_url}{path}'")
+                        url = eval(f"f'{base_url}{path}'")
 
-                        mf.syslog_trace(f"---\nGETting {url} ...", False, self.debug)
+                        mf.syslog_trace(f"---\nGETting {url} ", False, self.debug)
                         response = requests.get(url, headers=headers, timeout=10)
                         content = json.loads(response.content)
 
                         if self.debug:
-                            mf.syslog_trace(f"Result data: ", False, self.debug)
+                            mf.syslog_trace("Result data: ", False, self.debug)
                             for _key in content:
                                 if _key == "data" and isinstance(content[_key], dict):
                                     for _data_key in content[_key]:
@@ -67,7 +85,9 @@ class VolvoAPI:
                                             self.debug,
                                         )
                                 else:
-                                    mf.syslog_trace(f"   {_key} :: {content[_key]}", False, self.debug)
+                                    mf.syslog_trace(
+                                        f"   {_key} :: {content[_key]}", False, self.debug
+                                    )
                         result.append(content)
                     except:
                         pass
@@ -80,8 +100,6 @@ class VolvoAPI:
             #         pass
             # except KeyError:
             #     mf.syslog_trace(f"Skipping POST {path} ...", False, self.debug)
-
-
 
             # TODO: The specification "knows" what responses are to be expected
             #       for each path. Use that here to our advantage.
