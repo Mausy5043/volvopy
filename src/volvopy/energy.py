@@ -29,4 +29,4 @@ class Energy(VolvoAPI):
 if __name__ == "__main__":
     DEBUG = True
     a = Energy(debug=DEBUG)
-    a.get_all(accept="application/vnd.volvocars.api.energy.vehicledata.v1+json")
+    a.get_all()
