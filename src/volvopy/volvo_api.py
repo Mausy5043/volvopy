@@ -117,3 +117,82 @@ class VolvoAPI:
             #     mf.syslog_trace("Internal Server Error", False, self.debug)
 
         return result
+
+
+class Connected_Vehicle(VolvoAPI):
+    """Class to connect and interact with the Volvo Connected Vehicle API.
+
+    ref.: https://developer.volvocars.com/apis/connected-vehicle/v1/specification/
+    """
+
+    def __init__(self, debug=False):
+        super().__init__(debug=debug)
+
+        self.api = "connected"
+        self.api_token = vc.API_TOKEN[self.api]
+        self.api_spec = vc.API_SPECIFICATIONS[self.api]
+        self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
+        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+
+
+class Energy(VolvoAPI):
+    """Class to connect and interact with the Volvo Energy API.
+
+    ref.: https://developer.volvocars.com/apis/energy/v1/specification/
+    """
+
+    def __init__(self, debug=False):
+        super().__init__(debug=debug)
+
+        self.api = "energy"  # Name of the API.
+        self.api_token = vc.API_TOKEN[self.api]
+        self.api_spec = vc.API_SPECIFICATIONS[self.api]
+        self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
+        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+
+
+class Extended_Vehicle(VolvoAPI):
+    """Class to connect and interact with the Volvo Extended Vehicle API.
+
+    ref.:https://developer.volvocars.com/apis/extended-vehicle/v1/specification/
+    """
+
+    def __init__(self, debug=False):
+        super().__init__(debug=debug)
+
+        self.api = "extended"
+        self.api_token = vc.API_TOKEN[self.api]
+        self.api_spec = vc.API_SPECIFICATIONS[self.api]
+        self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
+        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+
+
+class Location(VolvoAPI):
+    """Class to connect and interact with the Volvo Location API.
+
+    ref.: https://developer.volvocars.com/apis/location/v1/specification/
+    """
+
+    def __init__(self, debug=False):
+        super().__init__(debug=debug)
+
+        self.api = "location"
+        self.api_token = vc.API_TOKEN[self.api]
+        self.api_spec = vc.API_SPECIFICATIONS[self.api]
+        self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
+        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+
+
+if __name__ == "__main__":
+    DEBUG = True
+    a = Location(debug=DEBUG)
+    a.get_all()
+
+    a = Extended_Vehicle(debug=DEBUG)
+    print(a.get_all())
+
+    a = Energy(debug=DEBUG)
+    a.get_all()
+
+    a = Connected_Vehicle(debug=DEBUG)
+    a.get_all()
