@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import json
-import pprint
 import configparser
+import json
 import os
-import pytz
+import pprint
 
+import pytz
 
 # constants
 DEBUG = False
@@ -35,7 +35,7 @@ _supported_api_specifications = {
 }
 
 API_SPECIFICATIONS = {
-    "connected": "connected.v1",
+    "connected": "connected.v2",
     "energy": "energy.v1",
     "extended": "extended.v1",
     "location": "location.v1",
@@ -59,7 +59,6 @@ for _name in API_SPECIFICATIONS:
     except:
         API_TOKEN[_name] = None
 API_VIN = _inifile.get("API", "vin")
-
 
 if __name__ == "__main__":
     _pp2.pprint(API_SPECIFICATIONS)
