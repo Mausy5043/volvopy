@@ -8,7 +8,7 @@ import uuid
 import mausy5043_common.funfile as mf
 import requests
 
-import __constants__ as vc
+import volvopy.settings.constants as vc
 
 DEBUG = False
 HERE = os.path.realpath(__file__).split("/")
