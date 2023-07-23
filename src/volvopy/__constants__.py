@@ -29,6 +29,7 @@ _api_keys_file = f"{_MYHOME}/.config/volvopy/keys.ini"
 
 _supported_api_specifications = {
     "connected.v1": f"{APPROOT}/specification/connected-vehicle-c3-specification.v1.json",
+    "connected.v2": f"{APPROOT}/specification/connected-vehicle-c3-specification.v2.json",
     "energy.v1": f"{APPROOT}/specification/energy-api-specification.v1.json",
     "extended.v1": f"{APPROOT}/specification/extended-vehicle-c3-specification.v1.json",
     "location.v1": f"{APPROOT}/specification/location-specification.v1.json",
