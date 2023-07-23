@@ -14,6 +14,7 @@ DEBUG = False
 HERE = os.path.realpath(__file__).split("/")
 MYID = HERE[-1]
 
+
 # Token for testing: https://developer.volvocars.com/apis/docs/test-access-tokens/#demo-car
 
 __UUID__ = uuid.UUID("{FACADE00-289C-11EE-8000-6AB05A49B93D}")  # Application UUID
@@ -44,10 +45,10 @@ class VolvoAPI:
         # generated here: https://developer.volvocars.com/apis/docs/test-access-tokens/#demo-car
         self.vin = vc.API_VIN  # The VIN number of the car
         self.uuid = __UUID__  # application UUID
-        mf.syslog_trace(f"UUID: {str(self.uuid)}", False, self.debug)
+        mf.syslog_trace(f"          UUID: {str(self.uuid)}", False, self.debug)
         # construct an application-wide instance-specific UUID
         self.vuid = uuid.uuid3(self.uuid, "volvopy")
-        mf.syslog_trace(f"VUID: {str(self.vuid)}", False, self.debug)
+        mf.syslog_trace(f"          VUID: {str(self.vuid)}", False, self.debug)
 
         self.api = ""
         self.api_token = None
@@ -59,7 +60,7 @@ class VolvoAPI:
     def get_all(self):
         """GET all paths"""
         result = []
-        vin = self.vin  # noqa
+        vin = self.vin  # noqa  # for use in the eval line
         base_url = f"{self.api_spec['servers'][0]['url']}"
         for path in self.api_spec["paths"]:
             try:
@@ -79,7 +80,7 @@ class VolvoAPI:
                     }
                     # construct the URL
                     try:
-                        url = eval(f"f'{base_url}{path}'")
+                        url = eval(f"f'{base_url}{path}'")  # nosec
 
                         mf.syslog_trace(f"---\nGETting {url} ", False, self.debug)
                         response = requests.get(url, headers=headers, timeout=10)
@@ -145,7 +146,7 @@ class Connected_Vehicle(VolvoAPI):
         self.api_token = vc.API_TOKEN[self.api]
         self.api_spec = vc.API_SPECIFICATIONS[self.api]
         self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
-        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+        mf.syslog_trace(f"Connected GUID: {self.guid}", False, self.debug)
 
 
 class Energy(VolvoAPI):
@@ -161,7 +162,7 @@ class Energy(VolvoAPI):
         self.api_token = vc.API_TOKEN[self.api]
         self.api_spec = vc.API_SPECIFICATIONS[self.api]
         self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
-        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+        mf.syslog_trace(f"   Energy GUID: {self.guid}", False, self.debug)
 
 
 class Extended_Vehicle(VolvoAPI):
@@ -177,7 +178,7 @@ class Extended_Vehicle(VolvoAPI):
         self.api_token = vc.API_TOKEN[self.api]
         self.api_spec = vc.API_SPECIFICATIONS[self.api]
         self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
-        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+        mf.syslog_trace(f" Extended GUID: {self.guid}", False, self.debug)
 
 
 class Location(VolvoAPI):
@@ -193,10 +194,11 @@ class Location(VolvoAPI):
         self.api_token = vc.API_TOKEN[self.api]
         self.api_spec = vc.API_SPECIFICATIONS[self.api]
         self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
-        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
+        mf.syslog_trace(f" Location GUID: {self.guid}", False, self.debug)
 
 
 if __name__ == "__main__":
+    # for testing purposes only
     DEBUG = True
     a = Location(debug=DEBUG)
     a.get_all()
