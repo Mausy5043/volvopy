@@ -3,8 +3,12 @@
 import __constants__ as vc
 from volvo_api import VolvoAPI
 import os
+import uuid
 
 import mausy5043_common.funfile as mf
+
+import __constants__ as vc
+from volvo_api import VolvoAPI
 
 DEBUG = False
 HERE = os.path.realpath(__file__).split("/")
