@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import __constants__ as vc
-from volvo_api import VolvoAPI
 import os
 import uuid
 
@@ -27,7 +25,8 @@ class Connected_Vehicle(VolvoAPI):
         self.api = "connected"
         self.api_token = vc.API_TOKEN[self.api]
         self.api_spec = vc.API_SPECIFICATIONS[self.api]
-        self.base_url = f"{self.api_spec['servers'][0]['url']}"
+        self.guid = str(uuid.uuid3(self.vuid, f"volvopy.{self.api}"))
+        mf.syslog_trace(f"GUID: {self.guid}", False, self.debug)
 
 
 if __name__ == "__main__":
