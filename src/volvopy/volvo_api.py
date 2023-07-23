@@ -19,6 +19,17 @@ MYID = HERE[-1]
 __UUID__ = uuid.UUID("{FACADE00-289C-11EE-8000-6AB05A49B93D}")  # Application UUID
 
 
+class VolvopyException(Exception):
+    """Base class for all volvopy exceptions"""
+
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        msg = f"(volvopy.{self.api}) {self.message}"
+        return msg
+
+
 class VolvoAPI:
     """Base Class to connect and interact with the Volvo Energy API.
 
@@ -89,8 +100,10 @@ class VolvoAPI:
                                         f"   {_key} :: {content[_key]}", False, self.debug
                                     )
                         result.append(content)
-                    except:
-                        pass
+                    except Exception as her:
+                        # Non-anticipated exceptions must be raised to draw attention to them.
+                        reraise = VolvopyException(f"{her}")
+                        raise reraise from her
             except KeyError:
                 mf.syslog_trace("", False, self.debug)
                 mf.syslog_trace(f"** Skipping {path} ...", False, self.debug)
