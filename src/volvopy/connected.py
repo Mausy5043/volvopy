@@ -29,4 +29,4 @@ class Connected_Vehicle(VolvoAPI):
 if __name__ == "__main__":
     DEBUG = True
     a = Connected_Vehicle(debug=DEBUG)
-    a.get_all(accept="application/vnd.volvocars.api.connected-vehicle.vehicledata.v1+json")
+    a.get_all()
