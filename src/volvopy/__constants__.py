@@ -48,7 +48,7 @@ for _key, _spec in API_SPECIFICATIONS.items():
         _data = json.load(_json_file)
     API_SPECIFICATIONS[_key] = _data
 
-# load the configuration file and store the carious keys in constants
+# load the configuration file and store the various keys in constants
 _inifile = configparser.ConfigParser()
 _inifile.read(_api_keys_file)
 API_KEY = [_inifile.get("API", "vcc_primary"), _inifile.get("API", "vcc_secondary")]
