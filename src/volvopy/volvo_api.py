@@ -95,14 +95,24 @@ class VolvoAPI:
 
                         mf.syslog_trace("Result data: ", False, self.debug)
                         for _key in content:
-                            if _key in ["data", "resources", "vehicles", "requests"] and isinstance(content[_key], dict):
+                            if _key in [
+                                "data",
+                                "resources",
+                                "vehicles",
+                                "requests",
+                            ] and isinstance(content[_key], dict):
                                 for _data_key in content[_key]:
                                     mf.syslog_trace(
                                         f"d      {_data_key} :: {content[_key][_data_key]}",
                                         False,
                                         self.debug,
                                     )
-                            if _key in ["data", "resources", "vehicles", "requests"] and isinstance(content[_key], list):
+                            if _key in [
+                                "data",
+                                "resources",
+                                "vehicles",
+                                "requests",
+                            ] and isinstance(content[_key], list):
                                 for _d in content[_key]:
                                     # for _data_key in _d:
                                     mf.syslog_trace(
@@ -121,8 +131,8 @@ class VolvoAPI:
                     except Exception as her:
                         # Non-anticipated exceptions must be raised to draw attention to them.
                         reraise = VolvopyException(f"{her}", self.api)
-                        print("text:",response.text)
-                        raise # reraise from her
+                        print("text:", response.text)
+                        raise  # reraise from her
             except KeyError:
                 mf.syslog_trace("", False, self.debug)
                 mf.syslog_trace(f"** Skipping {path} ...", False, self.debug)
