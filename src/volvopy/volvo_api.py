@@ -23,8 +23,9 @@ __UUID__ = uuid.UUID("{FACADE00-289C-11EE-8000-6AB05A49B93D}")  # Application UU
 class VolvopyException(Exception):
     """Base class for all volvopy exceptions"""
 
-    def __init__(self, message):
+    def __init__(self, message, api):
         self.message = message
+        self.api = api
 
     def __str__(self):
         msg = f"(volvopy.{self.api}) {self.message}"
@@ -61,8 +62,14 @@ class VolvoAPI:
         """GET all paths"""
         result = []
         vin = self.vin  # noqa  # for use in the eval line
+        resource = "none"  # noqa  # for use in the eval line
+        id = "none"  # noqa  # for use in the eval line
         base_url = f"{self.api_spec['servers'][0]['url']}"
         for path in self.api_spec["paths"]:
+            if "resources" in path:
+                print("*********GOTCHA******", path)
+            if "requests" in path:
+                print("*********GOTCHA******", path)
             try:
                 if self.api_spec["paths"][path]["get"]:
                     # get the 'Accept' entry from the specification
@@ -86,25 +93,36 @@ class VolvoAPI:
                         response = requests.get(url, headers=headers, timeout=10)
                         content = json.loads(response.content)
 
-                        if self.debug:
-                            mf.syslog_trace("Result data: ", False, self.debug)
-                            for _key in content:
-                                if _key == "data" and isinstance(content[_key], dict):
-                                    for _data_key in content[_key]:
-                                        mf.syslog_trace(
-                                            f"      {_data_key} :: {content[_key][_data_key]}",
-                                            False,
-                                            self.debug,
-                                        )
-                                else:
+                        mf.syslog_trace("Result data: ", False, self.debug)
+                        for _key in content:
+                            if _key in ["data", "resources", "vehicles", "requests"] and isinstance(content[_key], dict):
+                                for _data_key in content[_key]:
                                     mf.syslog_trace(
-                                        f"   {_key} :: {content[_key]}", False, self.debug
+                                        f"d      {_data_key} :: {content[_key][_data_key]}",
+                                        False,
+                                        self.debug,
                                     )
+                            if _key in ["data", "resources", "vehicles", "requests"] and isinstance(content[_key], list):
+                                for _d in content[_key]:
+                                    # for _data_key in _d:
+                                    mf.syslog_trace(
+                                        f"d      {_key} :: {_d}",
+                                        False,
+                                        self.debug,
+                                    )
+                            else:
+                                mf.syslog_trace(
+                                    f"k   {_key} :: {content[_key]}", False, self.debug
+                                )
                         result.append(content)
+                    except json.decoder.JSONDecodeError as her:
+                        print("Invalid response from server.")
+                        pass
                     except Exception as her:
                         # Non-anticipated exceptions must be raised to draw attention to them.
-                        reraise = VolvopyException(f"{her}")
-                        raise reraise from her
+                        reraise = VolvopyException(f"{her}", self.api)
+                        print("text:",response.text)
+                        raise # reraise from her
             except KeyError:
                 mf.syslog_trace("", False, self.debug)
                 mf.syslog_trace(f"** Skipping {path} ...", False, self.debug)
@@ -201,13 +219,26 @@ if __name__ == "__main__":
     # for testing purposes only
     DEBUG = True
     a = Location(debug=DEBUG)
-    a.get_all()
+    car_loc = a.get_all()
 
     a = Extended_Vehicle(debug=DEBUG)
-    print(a.get_all())
+    car_xtnd = a.get_all()
 
     a = Energy(debug=DEBUG)
-    a.get_all()
+    car_nrg = a.get_all()
 
     a = Connected_Vehicle(debug=DEBUG)
-    a.get_all()
+    car_cnct = a.get_all()
+
+    print("\n----location---")
+    for path_result in car_loc:
+        print(path_result)
+    print("\n----energy----")
+    for path_result in car_nrg:
+        print(path_result)
+    print("\n----connected----")
+    for path_result in car_cnct:
+        print(path_result)
+    print("\n----extended----")
+    for path_result in car_xtnd:
+        print(path_result)
