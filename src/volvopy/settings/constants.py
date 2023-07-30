@@ -57,7 +57,7 @@ API_TOKEN = {}
 for _name in API_SPECIFICATIONS:
     try:
         API_TOKEN[_name] = _inifile.get("API", f"{_name}_token")
-    except:
+    except Exception as her:
         API_TOKEN[_name] = None
 API_VIN = _inifile.get("API", "vin")
 
