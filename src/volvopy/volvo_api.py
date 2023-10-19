@@ -54,9 +54,7 @@ class VolvoAPI:
         self.api = ""
         self.api_token = None
         self.api_spec = {}
-        self.guid = (
-            "deadd00d-dead-d00d-dead-badbadbadbad"  # placeholder for a API-specific UUID
-        )
+        self.guid = "deadd00d-dead-d00d-dead-badbadbadbad"  # placeholder for a API-specific UUID
 
     def get_all(self):
         """GET all paths"""
@@ -66,9 +64,7 @@ class VolvoAPI:
         id = "none"  # noqa  # for use in the eval line
         base_url = f"{self.api_spec['servers'][0]['url']}"
         for path in self.api_spec["paths"]:
-            if "resources" in path:
-                print("*********GOTCHA******", path)
-            if "requests" in path:
+            if any(sub in path for sub in ("resources", "requests")):
                 print("*********GOTCHA******", path)
             try:
                 if self.api_spec["paths"][path]["get"]:
