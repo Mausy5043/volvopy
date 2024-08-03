@@ -31,3 +31,7 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/Mausy5043/volvopy"
 "Bug Tracker" = "https://github.com/Mausy5043/volvopy/issues"
+
+[tool.black]
+line-length = 98
+target-version = ["py39", "py310", "py311", "py312"]
