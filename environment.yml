@@ -15,8 +15,3 @@ dependencies:
   - pytz
   - requests
   - scipy
-  # Not on conda channels:
-  - pip:
-      - gracefulkiller
-      - mausy5043-common
-
