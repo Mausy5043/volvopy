@@ -1,5 +1,5 @@
 # These checks must pass before you may commit changes
-# first use: pre-commit run --all-files
+# first use: pre-commit install; pre-commit run --all-files
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
@@ -14,6 +14,7 @@ repos:
     -   id: end-of-file-fixer
     -   id: mixed-line-ending
     -   id: pretty-format-json
+        args: [--autofix]
     -   id: requirements-txt-fixer
     -   id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
