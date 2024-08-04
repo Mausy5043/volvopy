@@ -1,5 +1,8 @@
 # When making changes to this file update requirements.txt also !!
-# Usage: conda -v env update -n lektrix --file environment.yml; pre-commit run --all-files
+# Usage:
+# conda -v env update --file environment.yml; pre-commit run --all-files; pycheck
+
+name: volvopy
 
 channels:
   - conda-forge
