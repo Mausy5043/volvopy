@@ -13,6 +13,7 @@ dependencies:
   - jupyterlab
   - pandas
   - pip
+  - pipdeptree
   - pre-commit
   - pyarrow
   - pytz
