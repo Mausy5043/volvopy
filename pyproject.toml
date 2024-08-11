@@ -67,6 +67,4 @@ add-ignore = 'D'
 # pylint is controlled by .pylintrc
 
 [tool.mypy]
-no_color_output = true
-no_error_summary = true
 ignore_errors = true
