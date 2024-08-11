@@ -1,3 +1,4 @@
+# Project: volvopy
 # pyproject.toml
 
 # Hatchling  https://packaging.python.org/en/latest/key_projects/#hatch
@@ -35,6 +36,37 @@ classifiers = [
 "Homepage" = "https://github.com/Mausy5043/volvopy"
 "Bug Tracker" = "https://github.com/Mausy5043/volvopy/issues"
 
+[tool.bandit]
+skips = []
+
 [tool.black]
 line-length = 98
 target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.flake8]
+max_line_length = 98
+ignore = [
+# <M> is too complex; we don't care about complexity,
+    "C901",
+# whitespace before ':'; `black` enforces white-space before and after ':', so can be ignored.
+    "E203",
+# module level import not at top of file; handled by `pylint`
+    "E402",
+# line too long; is handled by `pylint`
+    "E501",
+# line break before binary operator; `black` enforces this
+    "W503",
+]
+
+[tool.pydocstyle]
+inherit = false
+convention = 'google'
+match = '.*\\.py'
+add-ignore = 'D'
+
+# pylint is controlled by .pylintrc
+
+[tool.mypy]
+no_color_output = true
+no_error_summary = true
+ignore_errors = true
