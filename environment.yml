@@ -9,13 +9,18 @@ channels:
   - defaults
 
 dependencies:
-  - python=3.11
+  - python=3.12
+  - pip
+
+  # imported deps
+  - pytz=2024.1
+  - requests=2.32.3
+
+  # dev deps
   - jupyterlab
   - pandas
-  - pip
+  - pylint>=3.0.2
   - pipdeptree
   - pre-commit
   - pyarrow
-  - pytz
-  - requests
   - scipy

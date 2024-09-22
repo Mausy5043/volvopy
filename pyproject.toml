@@ -12,8 +12,8 @@ description = "Connect to the Volvo API using Python."
 # version = "0.1.1"  # latest/current distribution version
 version = "0.1.22"  # latest test version
 dependencies = [
-    "pytz",
-    "requests",
+    "pytz==2024.1",
+    "requests==2.32.3",
     ]
 license = "MIT"
 authors = [
