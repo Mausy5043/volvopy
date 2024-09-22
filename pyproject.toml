@@ -1,3 +1,4 @@
+# Project: volvopy
 # pyproject.toml
 
 # Hatchling  https://packaging.python.org/en/latest/key_projects/#hatch
@@ -9,12 +10,15 @@ build-backend = "hatchling.build"
 name = "volvopy"
 description = "Connect to the Volvo API using Python."
 # version = "0.1.1"  # latest/current distribution version
-version = "0.1.21"  # latest test version
-dependencies = []
+version = "0.1.22"  # latest test version
+dependencies = [
+    "pytz",
+    "requests",
+    ]
 license = "MIT"
 authors = [
   { name="Mausy5043" },
-]
+  ]
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -26,8 +30,47 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Home Automation"
-]
+    ]
 
 [project.urls]
 "Homepage" = "https://github.com/Mausy5043/volvopy"
 "Bug Tracker" = "https://github.com/Mausy5043/volvopy/issues"
+
+[tool.autopep8]
+max_line_length = 98
+in-place = true
+recursive = true
+aggressive = 1
+
+[tool.bandit]
+skips = []
+
+[tool.black]
+line-length = 98
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.flake8]
+max_line_length = 98
+ignore = [
+# <M> is too complex; we don't care about complexity,
+    "C901",
+# whitespace before ':'; `black` enforces white-space before and after ':', so can be ignored.
+    "E203",
+# module level import not at top of file; handled by `pylint`
+    "E402",
+# line too long; is handled by `pylint`
+    "E501",
+# line break before binary operator; `black` enforces this
+    "W503",
+]
+
+[tool.pydocstyle]
+inherit = false
+convention = 'google'
+match = '.*\\.py'
+add-ignore = 'D'
+
+# pylint is controlled by .pylintrc
+
+[tool.mypy]
+ignore_errors = true

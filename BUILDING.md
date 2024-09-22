@@ -3,10 +3,10 @@
 ## Versionnumbers
 
 We try to follow [semantic versioning](semver.org).
-* We don't have `0` MINOR or PATCH versionnumbers. Patterns `x.0.z` and `x.y.0` do not exist. 
+* We don't have `0` MINOR or PATCH versionnumbers. Patterns `x.0.z` and `x.y.0` do not exist.
 * Testing versions are identified by odd-numbered MINOR versions
 * Stable/production versions are identified by even-numbered MINOR versions
-* MAJOR versions increase only when significant changes are made 
+* MAJOR versions increase only when significant changes are made
 
 ## Building the package for testing
 
@@ -16,7 +16,7 @@ Preferably changes are done on a separate branch.
 1. Make the necessary changes...
 1. In `./pyproject.toml` change the versionnumber under `[project]/version`
    * For testing we change the MINOR version to the next **odd** value
-   * The first PATCH version always starts on x.y.1 and increases by +1 with every new build 
+   * The first PATCH version always starts on x.y.1 and increases by +1 with every new build
    * Builds with the same versionnumber can't be uploaded to PyPi, so it's not like we have a choice
 1. Run `./build -b`
 1. Run `./build -t`  *(installation instructions are displayed on the terminal after the upload)*

@@ -1,0 +1,21 @@
+# When making changes to this file update requirements.txt also !!
+# Usage:
+# conda -v env update --file environment.yml; pre-commit run --all-files; pycheck
+
+name: volvopy
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - jupyterlab
+  - pandas
+  - pip
+  - pipdeptree
+  - pre-commit
+  - pyarrow
+  - pytz
+  - requests
+  - scipy

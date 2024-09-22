@@ -28,7 +28,7 @@ build_app(){
 test_app() {
     LOCATION=$1
     echo "Upload package to TestPyPi from $LOCATION"
-    python3 -m twine upload --repository testpypi dist/*
+    # python3 -m twine upload --repository testpypi dist/*
     echo ""
     echo "To test installing this package use:"
     echo "python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps --upgrade ${PACKAGE_NAME}"
@@ -37,7 +37,7 @@ test_app() {
 dist_app() {
     LOCATION=$1
     echo "Upload distribution package to PyPi from $LOCATION"
-    python3 -m twine upload --repository pypi dist/*
+    # python3 -m twine upload --repository pypi dist/*
     echo ""
     echo "To install this package use:"
     echo "python3 -m pip install --upgrade ${PACKAGE_NAME}"
