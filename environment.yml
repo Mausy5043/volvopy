@@ -13,13 +13,12 @@ dependencies:
   - pip
 
   # imported deps
-  - pytz=2024.1
+  - pytz=2024.2
   - requests=2.32.3
 
   # dev deps
   - jupyterlab
   - pandas
-  - pylint>=3.0.2
   - pipdeptree
   - pre-commit
   - pyarrow
