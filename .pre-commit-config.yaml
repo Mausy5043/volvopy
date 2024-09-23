@@ -11,7 +11,6 @@ repos:
     -   id: check-yaml
     -   id: end-of-file-fixer
     -   id: mixed-line-ending
-    -   id: pretty-format-json
     -   id: requirements-txt-fixer
     -   id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
