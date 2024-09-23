@@ -1,14 +1,15 @@
 
+[![License](https://img.shields.io/github/license/mausy5043/volvopy)](LICENSE)
 ![Static Badge](https://img.shields.io/badge/release-rolling-lightgreen)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Mausy5043/volvopy/latest.svg)](https://results.pre-commit.ci/latest/github/Mausy5043/volvopy/latest)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Mausy5043/volvopy/devel.svg)](https://results.pre-commit.ci/latest/github/Mausy5043/volvopy/devel)
 
 # volvopy
 Connect to the Volvo API using Python.
 
 The library works with Python 3.9 (v3.8 will likely also work) for the demo cars of the API using your own VCC keys. You also need to generate DEMO tokens for each API module.
 
-# Installation
+## Installation
 On Linux:
 ```bash
 python3 -m pip install --upgrade volvopy
@@ -26,6 +27,6 @@ energy_token: <token to access the Energy API>
 vin: <VIN number of your car>
 ```
 
-# Disclaimer & License
+## Disclaimer & License
 This is demonstration software.
-See [LICENSE](LICENSE).
+As of September 2024 `volvopy` is distributed under [AGPL-3.0-or-later](LICENSE).

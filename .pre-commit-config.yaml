@@ -1,6 +1,4 @@
 # These checks must pass before you may commit changes
-# first use: pre-commit install; pre-commit run --all-files
-
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
